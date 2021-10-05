@@ -1,6 +1,24 @@
 #include	<stdio.h>
 #include	<stdlib.h>
 
+/* error manager
+ */
+int	ft_error(int argc, char** argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (++i < argc)
+	{
+		j = -1;
+		while (argv[i][++j] != '\0')
+			if (argv[i][j] < 48 || argv[i][j] > 57)
+				return(1); 		
+		}
+		return 0;
+}
+
 /* convert string to int
  */
 int	ft_strnbr(char* str)
@@ -73,6 +91,11 @@ int	main(int argc, char** argv)
 	int	j;
 	int	nbr;
 	int	sum;
+	
+	if (ft_error(argc, argv))
+		printf("error: letter in arguments\n");
+	if (ft_error(argc, argv))
+		return (0);
 
 	achat = ft_strnbr(argv[1]);
 	poutre = ft_poutre(argc, argv);
