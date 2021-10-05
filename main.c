@@ -1,22 +1,26 @@
 #include	<stdio.h>
 #include	<stdlib.h>
 
-/* string to int
+/* convert string to int
  */
 int	ft_strnbr(char* str)
 {
-	int	nbr= 0;
-	int	ten = 1;
+	int	nbr;
+	int	ten;
 	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
 		i++;
+
+	nbr = 0;
+	ten = 1;
 	while (i-- > 0)
 	{
 		nbr += (str[i] - 48) * ten;
 		ten *= 10;
 	}
+
 	return (nbr);
 }
 
@@ -24,41 +28,54 @@ int	ft_strnbr(char* str)
  */
 void	ft_decroissant(int* ls, int argc)
 {
-	int	i = -1;
+	int	i;
+	int	j;
+	int	temp;
 
+	i = -1;
 	while (++i < argc - 2)
 	{
-		int	j = i;
+		j = i;
 		while (++j < argc - 2)
 		{
 			if (ls[i] < ls[j])
 			{
-				int temp = ls[i];
-				ls[i] = ls [j];
+				temp = ls[i];
+				ls[i] = ls[j];
 				ls[j] = temp;
 			}
 		}
 	}
 }
    
+/* create an int array 
+ * with the argument
+ */
 int*	ft_poutre(int argc, char** argv)
 {
 	int*	poutre;
+	int	i;
+	
 	poutre = (int*)malloc(sizeof(int*) * (argc - 2));
-	int	i = -1;
+
+	i = -1;
 	while (++i < argc - 2)
-	{
 		poutre[i] = ft_strnbr(argv[i+2]);
-	}
+
 	return (poutre);
 }
 
 int	main(int argc, char** argv)
 {
-	int	achat = ft_strnbr(argv[1]);
-	int*	poutre = ft_poutre(argc, argv);
+	int	achat;
+	int*	poutre;
 	int	i;
+	int	j;
 	int	nbr;
+	int	sum;
+
+	achat = ft_strnbr(argv[1]);
+	poutre = ft_poutre(argc, argv);
 
 	printf("achat %d\tcm\n\n", achat);
 	
@@ -66,17 +83,14 @@ int	main(int argc, char** argv)
 
 	i = -1;
 	while (++i < argc -2)
-	{
 		printf("%d.\tpoutre %d\tcm\t%p\n", i + 1, poutre[i], &poutre[i]);
-	}
 
 	nbr = 0;
 	i = -1;
 	while (++i < argc - 2)
 	{
-	
-		int	j = i;
-		int	sum = 0;
+		j = i;
+		sum = 0;
 		if (poutre[i] <= achat)
 		{
 			nbr++;
@@ -100,5 +114,4 @@ int	main(int argc, char** argv)
 	}
 
 	free(poutre);
-	return 0;	
 }
